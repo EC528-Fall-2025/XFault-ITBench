@@ -5,7 +5,7 @@
 | Name | Role | Email |
 |---|---|---|
 | Rohan Arora | Mentor | rohan.arora@ibm.com |
-| Gerard Vanloo | Developer | gerard.vanloo@ibm.com |
+| Gerard Vanloo | Mentor | gerard.vanloo@ibm.com |
 | Phyliss Darko | Developer | phylissd@bu.edu |
 | Pree Simphliphan | Developer | prees26@bu.edu |
 | Ryan Malone | Developer | rmalone@bu.edu |
@@ -27,7 +27,7 @@ Our goal as a team is to address gaps in ITBench by extending these fault inject
 
 Secondary contributions may also include designing more incidents, enhancements through integration with relevant applications, and increasing general usability for end users.
 
-## 2. Users/Personas of the Project
+## Users/Personas of the Project
 
 The principal users of the extended ITBench fault mechanism are professionals and researchers who directly rely on realistic fault simulation to ensure the reliability of distributed systems and the effectiveness of AI-driven automation. Site Reliability Engineers are the primary focus of this project. They work under immense pressure to diagnose failures, mitigate outages, and maintain system reliability in complex production environments. ITBench provides them with a safe, controlled environment to:
 
