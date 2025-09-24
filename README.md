@@ -58,7 +58,7 @@ The scope of this project is to extend ITBench’s fault injection and detection
 - **Observability** - integration of new fault scenarios with Prometheus, Jaeger, openSearch, etc, to support monitoring and tracing tools so that agent performance can be measured consistently. Also to ensure SREs have the metrics, traces,and logs necessary for root cause analysis and incidents triage.
 - **Usability Enhancements** - creation of modular, reusable fault components and documentation updates so SREs and open source contributors can easily reproduce incidents, create new combinations, and test AI-driven remediation strategies.
   
-**Out of Scope Features**
+**Out of Scope Features**:
 
 - Creation of new AI agents (evaluation only)
 - Support for non-kubernetes environments (testing assumes kubernetes as base)
