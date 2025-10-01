@@ -12,6 +12,10 @@
 | Tyler Nguyen | Developer | tnguyen0@bu.edu |
 | Vincent Candela| Developer | vcandela@bu.edu |
 
+## Sprint Demos
+
+[Sprint 1 Demo](https://drive.google.com/file/d/1MRTftMVook5hUP4fjAp5lQpa7gcoW62a/view?usp=sharing) | [Sprint 1 Slides ](https://docs.google.com/presentation/d/1sjAw02g-9Nfv2HuaapXCvgmP0mxJ3uUInUmbL2SpxG8/edit?usp=sharing)
+
 ## Vision and Goals of the Project
 
 ### Background
