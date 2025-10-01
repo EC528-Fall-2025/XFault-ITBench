@@ -14,7 +14,7 @@
 
 ## Sprint Demos
 
-[Sprint 1 Demo](https://drive.google.com/file/d/1MRTftMVook5hUP4fjAp5lQpa7gcoW62a/view?usp=sharing) | [Sprint 1 Slides ](https://docs.google.com/presentation/d/1sjAw02g-9Nfv2HuaapXCvgmP0mxJ3uUInUmbL2SpxG8/edit?usp=sharing)
+[Sprint 1 Demo]([https://drive.google.com/file/d/1MRTftMVook5hUP4fjAp5lQpa7gcoW62a/view?usp=sharing](https://drive.google.com/file/d/1Q8h8t-LOxZ-m1zKE-fySNAeK1Hii9WqP/view?usp=sharing)) | [Sprint 1 Slides ](https://docs.google.com/presentation/d/1sjAw02g-9Nfv2HuaapXCvgmP0mxJ3uUInUmbL2SpxG8/edit?usp=sharing)
 
 ## Vision and Goals of the Project
 
