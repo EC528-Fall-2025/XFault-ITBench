@@ -152,3 +152,16 @@ Below are a rough listing of fault scenarios that we want to cover. Work will be
     - Load Balancer Failures
     - Cascading Failures Across Services
     - Downstream Rate Limiting or Throttling/Race Conditions
+
+## Release Planning
+
+Sprints
+
+| # | Dates | Sprint Title | Focus / Deliverables |
+| :------: | :------: | :------: | :------: |
+| 1 | Sep 15 – Oct 1 | Foundations | Gain hands-on experience with Kubernetes, microservices, and OpenTelemetry |
+| 2 | Oct 2 – Oct 15 | ITBench Familiarization | Deploy ITBench in a Kubernetes cluster, explore existing fault injection mechanisms, and extend them by combining faults into new scenarios |
+| 3 | Oct 16 – Oct 29 | Application-Level Faults (Part 1) | Implement application-level mechanisms, which will include faults triggered by network policy misconfigurations, and faults triggered by malformed data injection |
+| 4 | Oct 30 – Nov 12 | Application-Level Faults (Part 2) | Continue to extend application-level faults, which this sprint will cover adding a new microservice with login/authentication to simulate authentication failures and introducing memory leak scenarios |
+| 5 | Nov 13 – Nov 24 | Container/Pod-Level Faults | Implement pod-level scenarios, including pod evictions, node affinity conflicts leading to scheduling failures, readiness probe failures, and ImagePullBackoff errors due to registry unavailability |
+| 6 | Nov 25 – Dec 8 | Multi-Service Faults | Implement multi-service coordination failures, including misconfigured service mesh policies, load balancer failures, cascading failures across services, and downstream rate-limiting/throttling scenarios | 
