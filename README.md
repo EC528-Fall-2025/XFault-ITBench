@@ -17,6 +17,10 @@
 [Sprint Demo 1](https://drive.google.com/file/d/1Q8h8t-LOxZ-m1zKE-fySNAeK1Hii9WqP/view?usp=sharing) | [Sprint 1 Slides ](https://docs.google.com/presentation/d/1sjAw02g-9Nfv2HuaapXCvgmP0mxJ3uUInUmbL2SpxG8/edit?usp=sharing)
 
 [Sprint Demo 2](https://drive.google.com/file/d/1spLHJLEG582y-zielfJ89qYbxFPkFPnP/view?usp=sharing) | [Sprint 2 Slides](https://docs.google.com/presentation/d/1BQi8PwxHS5iw87HWU4xMmLudjDrvHVy-P6j5rilcQBA/edit?usp=sharing) 
+
+[Sprint Demo 3](https://drive.google.com/file/d/1DGxTrdQlPem-FXnRzJYd-Prl8cd0FLkq/view?usp=sharing) | [Sprint 3 Slides](https://docs.google.com/presentation/d/1romlamLLVoEkvpWZDKsn_MGA5TE14dJ_KxZlCQB0JlQ/edit?usp=sharing)
+
+
 ## Vision and Goals of the Project
 
 ### Background
