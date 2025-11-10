@@ -24,7 +24,7 @@ The link to the main repository we are working on is [ITBench-Scenarios](https:/
 | Name | Fault Contribution Summary |
 | --- | --- |
 | [Tyler Nguyen, Forked Repo](https://github.com/tylrnguyen/ITBench-Scenarios) | <ul><li>Expired TLS Certificate Fault</li><li>Misconfigured Service Mesh Faults:<ul><li>Explicit Traffic Deny</li><li>Sidecar Proxy Disabling</li></ul></li></ul> |
-| Phyllis Darko |  <ul><li>Fill Database Storage Fault</li> <li>Misconfigured DNS Fault |
+| [Phyliss Darko, Forked Repo](https://github.com/phylisscity/ITBench-Scenarios) |  <ul><li>Fill Database Storage Fault</li> <li>Misconfigured DNS Fault |
 | [Pree Simphliphan, Forked Repo](https://github.com/preespp/ITBench-Scenarios) | <ul><li>Node Resource Exhaustion</li> <li>Init-Container Hang</li> <li>Readiness Probe Flapping</li>|
 
 
