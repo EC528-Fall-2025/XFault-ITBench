@@ -20,7 +20,7 @@
 
 [Sprint Demo 4](https://drive.google.com/file/d/1uiP9xDFWdcezhT76KB4gGH28O60bI7Xr/view?usp=sharing) | [Sprint 4 Slides](https://docs.google.com/presentation/d/1RJDlipCBvV4zHnoD7KY9pYRlW9jpOT9y4Lcj1sIrGQc/edit?usp=sharing)
 
-[Sprint Demo 5](https://drive.google.com/file/d/1uiP9xDFWdcezhT76KB4gGH28O60bI7Xr/view?usp=sharing](https://drive.google.com/file/d/1AbznDp1_FZbeADkSS-u9m7fgLYsWzg-W/view?usp=sharing)) | [Sprint 5 Slides](https://docs.google.com/presentation/d/1RJDlipCBvV4zHnoD7KY9pYRlW9jpOT9y4Lcj1sIrGQc/edit?usp=sharing](https://docs.google.com/presentation/d/1vDy-XkxpKxu7oQufHX70eKDPdils_yKM1XO1QcuUlAY/edit?usp=sharing))
+[Sprint Demo 5](https://drive.google.com/file/d/1AbznDp1_FZbeADkSS-u9m7fgLYsWzg-W/view?usp=sharing) | [Sprint 5 Slides](https://docs.google.com/presentation/d/1RJDlipCBvV4zHnoD7KY9pYRlW9jpOT9y4Lcj1sIrGQc/edit?usp=sharing](https://docs.google.com/presentation/d/1vDy-XkxpKxu7oQufHX70eKDPdils_yKM1XO1QcuUlAY/edit?usp=sharing))
 
 
 
