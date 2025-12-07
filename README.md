@@ -280,13 +280,6 @@ source venv/bin/activate
 3. Install Python dependencies
 ```bash
 python -m pip install -r requirements.txt
-```
-
-**Optional for Remote Cluster User**
-
-_Note: The developer requirements are required in order to lint the playbooks, build the AWX execution environment image, or use the provided playbooks for remote cluster setup. If this functionality is not required, then it is not necessary to install these requirements._
-
-```bash
 python -m pip install -r requirements-dev.txt
 ```
 
@@ -309,8 +302,8 @@ make group_vars
 cd dev/local_cluster
 ```
 
-For instruction on how to create a kind cluster on MacOS, please see the instructions [here]([./dev/local_cluster/README.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README.md)).
-For instruction on how to create a kind cluster on Red Hat Enterprise Linux (RHEL) virtual machine (VM) or bare-metal instance, please see the instructions [here]([./dev/local_cluster/README_RHEL.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README_RHEL.md)).
+For instruction on how to create a kind cluster on MacOS, please see the instructions [here](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README.md).
+For instruction on how to create a kind cluster on Red Hat Enterprise Linux (RHEL) virtual machine (VM) or bare-metal instance, please see the instructions [here](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README_RHEL.md).
 
 ##### Remote Cluster (Recommended)
 
