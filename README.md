@@ -220,7 +220,10 @@ This project has showcased running multiple representative incidents, such as re
 
 ## Installation Guide
 - This installation guide is referenced from main repository written by our mentors and ITBench Team. Full instruction can be accessed via [this link](https://github.com/itbench-hub/ITBench-Scenarios/tree/main/sre)
-- First step: clone git hub ITBench GitHub Repo
+- First step: clone ITBench GitHub Repo
+```bash
+git clone https://github.com/itbench-hub/ITBench-Scenarios
+```
 
 ### Recommended Software
 
@@ -263,7 +266,7 @@ sudo dnf install python3.13
 #### Deploying an Incident Scenario
 
 ##### Installing Dependencies (for initial setup only)
-1. Change directory to sre directory
+1. Navigate to sre directory
 ```bash
 cd sre
 ```
