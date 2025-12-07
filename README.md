@@ -309,6 +309,10 @@ For instruction on how to create a kind cluster on Red Hat Enterprise Linux (RHE
 
 _Note: The following setup guide has been verified and tested on MacOS, Ubuntu, and Fedora using the perscribed details._
 
+_Note: For full instruction on original ITBench repository, please follow the link [here]([./dev/remote_cluster/README.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/remote_cluster/README.md))._
+
+_Note: Currently, only AWS is supported. AWS clusters are provisioned using [kOps](https://kops.sigs.k8s.io/)._
+
 - Change directory to dev/remote_cluster
 ```bash
 cd dev/remote_cluster
@@ -335,12 +339,12 @@ sudo dnf install jq
 
 ###### 0. First Time Setup
 
-1. Create the group variables for the development host. The `kops_cluster.yaml` file contains the configuration needed to customize the kops deployment.
+Create the group variables for the development host. The `kops_cluster.yaml` file contains the configuration needed to customize the kops deployment.
 ```bash
 make group_vars
 ```
 
-2. The following variables are to be set in `group_vars/development/kops_cluster.yaml`
+The following variables are to be set in `group_vars/development/kops_cluster.yaml`
 ```
 cluster:
   s3:
@@ -348,15 +352,14 @@ cluster:
   ssh:
     public_key_path: "" # Public SSH key to be placed on the cluster nodes allowing for the nodes to be SSHed into; must be set if clusters are to be created.
 ```
-A guide to creating SSH keys can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
+_Note: A guide to creating SSH keys can be found [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)._
 
-3. Set up AWS credentials by running the following command. Enter the AWS access key ID and security access key when requested.
+Set up AWS credentials by running the following command. Enter the AWS access key ID and security access key when requested.
 ```bash
 aws configure
 ```
 
-###### 1. Create the Cluster
-Create a new Kubernetes cluster using EC2 resources. Skip this step if you already have a cluster running.
+###### 1. Create a new Kubernetes cluster using EC2 resources. Skip this step if you already have a cluster running.
 
 The cluster configuration is defined in `group_vars/development/kops_cluster.yaml`.
 
@@ -364,8 +367,7 @@ The cluster configuration is defined in `group_vars/development/kops_cluster.yam
 make create_kops_cluster
 ```
 
-###### 2. Export Kubeconfig
-Export the cluster's kubeconfig to access the remote Kubernetes cluster:
+###### 2. Export the cluster's kubeconfig to access the remote Kubernetes cluster:
 
 ```bash
 make export_kops_kubeconfig
@@ -383,8 +385,7 @@ Then, run the following command with the CLUSTER_NAME argument:
 CLUSTER_NAME=<full name of cluster> make export_kops_kubeconfig
 ```
 
-###### 3. Verify Cluster Access
-Test your connection to the cluster:
+###### 3. Verify Cluster Access to test your connection to the cluster:
 
 ```bash
 export KUBECONFIG=/tmp/<cluster_name>.yaml
@@ -397,8 +398,7 @@ export KUBECONFIG="/tmp/development-m5.xlarge-aws.k8s.local.yaml"
 kubectl get pods --all-namespaces
 ```
 
-###### 4. Update Global Configuration
-Update the `kubeconfig` path in your global configuration:
+###### 4. Update the `kubeconfig` path in your global configuration:
 
 ```bash
 vim ../../group_vars/environment/cluster.yaml
@@ -415,12 +415,6 @@ kubeconfig: "/tmp/development-m5-xlarge-aws.k8s.local.yaml"
 ```
 
 ###### 5. The cluster has been set up. Now let's head back to sre directory to deploy the incidents.
-
-For full instruction on original ITBench repository, please follow the link [here]([./dev/remote_cluster/README.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/remote_cluster/README.md)).
-
-Currently, only AWS is supported. AWS clusters are provisioned using [kOps](https://kops.sigs.k8s.io/).
-
-- After finishing setup cluster, change directory back to sre
 ```bash
 cd ../..
 ```
