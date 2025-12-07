@@ -81,13 +81,19 @@ The scope of this project is to extend ITBench’s fault injection and detection
 - **Multi-Service Coordination Faults** - load balancer misrouting, cascading cross-service failures, misconfigured mesh policies, and downstream rate-limiting or throttling. These represent the most severe reliability incidents, where dependencies multiply the impact of a single failure.
 - **Observability** - integration of new fault scenarios with Prometheus, Jaeger, openSearch, etc, to support monitoring and tracing tools so that agent performance can be measured consistently. Also to ensure SREs have the metrics, traces,and logs necessary for root cause analysis and incidents triage.
 - **Usability Enhancements** - creation of modular, reusable fault components and documentation updates so SREs and open source contributors can easily reproduce incidents, create new combinations, and test AI-driven remediation strategies.
+
+Minimum Viable Product (MVP):
+- Implement and extend 9 fault scenarios at least 3 fault scenarios per level
+
+Extended goal:
+- Implement and extend another 6 fault scenarios across each level
+- New Tools introduced to ITBench such as Istio Service Mesh
   
-**Out of Scope Features**:
+**Out of Scope Features (Not included in this project)**:
 
 - Creation of new AI agents (evaluation only)
 - Support for non-kubernetes environments (testing assumes kubernetes as base) such as Python Unit Testing API
 - Major redesign of ITBench’s architecture (extending existing mechanisms, not rebuilding framework)
-- New Tools introduced to ITBench such as Istio Service Mesh
 
 By setting these boundaries, the project ensures focus on realistic reliability scenarios. The result is a powerful testbed where SREs can validate whether AI agents respond as effectively as human engineers to production-scale failures; from small misconfigurations to multi-service outages.
 
@@ -103,9 +109,9 @@ By setting these boundaries, the project ensures focus on realistic reliability 
   <img src="https://github.com/user-attachments/assets/e610e024-2f8e-4a72-bb2c-dc9ffc6385c7" width="254" height="325" />
 </p>
 
+The architecture diagram now highlights the technologies in use for MVP: Prometheus (metrics), Jaeger (traces), OpenSearch (logs), and Kubernetes (fault orchestration). These integrations ensure each fault is observable and measurable by the AI agent.
 
-
-This project extends ITBench’s fault injection and detection framework. The existing open-source framework involved Kubernetes. The new real-world fault scenarios will be introduced to the framework with three levels of distributed systems:
+This project extends ITBench’s fault injection and detection framework. The existing open-source framework involved Kubernetes. The new real-world fault scenarios will be studied and introduced to the framework with three levels of distributed systems:
 
 #### 1. Application-Level Faults:
   - Database connection issues
@@ -124,7 +130,6 @@ This project extends ITBench’s fault injection and detection framework. The ex
   - Init container failures
   - Node affinity misconfiguration
   - Readiness (liveness) probe failures
-  - ImagePullBackoff due to registry unavailability
 
 Each fault scenario will be implemented and observed by monitoring tools such as Prometheus, Jaeger, OpenSearch, and Clickhouse, to be a metric of AI agents’ evaluation. Moreover, these mechanisms will be modular to be reused, combined, extended, and published into ITBench’s open-source framework.
 
@@ -132,6 +137,32 @@ Each fault scenario will be implemented and observed by monitoring tools such as
   - Modularity: Each fault mechanism should be pluggable for reusability and expansion in future use cases, such as security incidents, compliance failures.
   - Realism: Fault mechanisms must mimic real-world production incidents at major cloud providers and IBM SaaS incidents.
   - Observability: Faults will integrate with monitoring tools so that AI agents and SREs can detect traces, logs, or metrics for evaluation.
+
+## Glossary
+
+- SRE (Site Reliability Engineering)
+A discipline focused on building and operating reliable, scalable systems using automation, monitoring, and fault tolerance.
+
+- MCP (Model Context Protocol)
+An open protocol that allows AI agents to securely access tools, APIs, logs, metrics, and contextual system data. ITBench uses MCP to enable agents to interact with observability systems like Prometheus, Jaeger, and OpenSearch.
+
+- PDB (Pod Disruption Budget)
+A Kubernetes mechanism that limits how many pods of an application can be voluntarily disrupted at once (e.g., during upgrades or maintenance), helping ensure service availability.
+
+- OpenTelemetry (OTel)
+A vendor-neutral observability standard for generating, collecting, and exporting metrics, logs, and traces. ITBench uses OTel-compatible data for benchmarking AI agents.
+
+- FinOps
+A practice that manages cloud financial operations, helping organizations control cloud costs and track resource efficiency.
+
+- CISO (Chief Information Security Officer)
+A senior executive responsible for an organization’s cybersecurity strategy and incident response readiness.
+
+- Sidecar
+A companion container in a Kubernetes pod that provides auxiliary functionality (e.g., logging, proxies, monitoring agents). Some faults involve sidecar misbehavior or failure.
+
+- Eviction Cascade
+A chain-reaction failure where Kubernetes evicts multiple pods due to resource pressure (CPU, memory, disk, or node-level stress), potentially causing widespread service disruptions.
 
 ## Acceptance criteria 
 
@@ -146,33 +177,27 @@ Three Big General Goals
       - Simulating system failures
       - Validating pipelines and incident response workflows 
       - Assessing how agents respond to complex fault conditions before deployment
-2. Extending the mode of interaction(s) for agents via MCP
-    - Enable broader more flexible agent interactions within ITBench. 
-    - Provide agents with structure data access
-      - logs, traces, error metrics, etc. 
-3. Improved documentation / consumability
+2. Improved documentation / consumability
     - Enhance onboarding materials, examples, and fault scenario coverage
-    - Ensure usability of ITBench for SRE-focused workflows and agentic software testing. 
+    - Ensure usability of ITBench for SRE-focused workflows and agentic software testing.
+3. Add Istio Service Mesh tools for expanding fault scenarios based on this tool
 
 Below are a rough listing of fault scenarios that we want to cover. Work will be completed to develop faults that sufficiently cover each use case. We may decide that certain faults will not be covered and (or) other use cases of faults should be added.
 
-1. Application Level Mechanisms (Part I)
-    - Network policy misconfigurations
-    - Malformed data injections/database access methods
-2. Application Level Mechanisms (Part II)
-    - Authentication Errors and Bugs
-    - Memory Leaks
-3. Pod-Level Scenarios
-    - Pod Evictions
-    - Node Affinity Conflicts and Scheduling Failures
-    - Readiness Probe Failures
-    - Registry Unavailability Errors
-4. Multi-service Faults
-    - Multiservice Coordination Failures
-    - Misconfigured Service Mesh Policies
-    - Load Balancer Failures
-    - Cascading Failures Across Services
-    - Downstream Rate Limiting or Throttling/Race Conditions
+1. Application Level Mechanisms
+    - Malformed data injections/database access methods: Fill Database Storage and Database Resource Limit
+    - Misconfigured DNS (Network Policy) misconfigurations
+2. Pod-Level Scenarios
+    - Exhaust Node Resource
+    - Hanging Init Container
+    - Misconfigured Readiness Probe Flapping
+    - Disabled Sidecar Proxy
+    - Pod Anti-Affinity Preventing Scheduling
+    - Pod Priority-Based Eviction Cascade
+    - PDB Blocking Node Drain
+3. Multi-service Faults
+    - Expired TLS Certificate
+    - Authorization Policy Deny
 
 ## Release Planning
 
@@ -185,7 +210,13 @@ Sprints
 | 3 | Oct 16 – Oct 29 | Faults (Part 1) | Implement new fault mechanisms, including Database Resource Limit, Fill database storage fault, Misconfigured Service Mesh Fault, Exhaust Node Resources Fault, and expired TLS certificates fault|
 | 4 | Oct 30 – Nov 12 | Faults (Part 2) | Revised Pull Request from Sprint 2 and continue to extend faults: DNS Misconfiguration Fault, Hanging Init Container Fault, Disabled Sidecar Proxies Fault, and Explicit Traffic Denial |
 | 5 | Nov 13 – Nov 24 | Faults (Part 3) + Python Unit Testing | Research on Python Testing API for non-kubernetes users and implement new fault scenarios, including PodDisruptionBudget, Pod Priority-Based Eviction Cascade, Pod Anti-Affinity, and Misconfigured Readiness Probe Flapping |
-| 6 | Nov 25 – Dec 8 | Wrap Up Pull Requests | Finish up all Pull Requests and Merged all branches to main branch for application-level, multi-service coordination and container/pod-level failures | 
+| 6 | Nov 25 – Dec 8 | Wrap Up Pull Requests | Finish up all Pull Requests, Merged all branches to main branch for application-level, multi-service coordination and container/pod-level failures and Revise documentation | 
+
+## Summary
+
+We delivered an extension to ITBench that introduces a suite of new SRE-focused fault scenarios, complete with observability integrations, incident ground truth files, and cleanup workflows. All faults are reproducible on Kubernetes and validated end-to-end using Prometheus, Jaeger, Grafana, and ITBench’s scenario engine.
+
+This project has showcased running multiple representative incidents, such as readiness flapping, network traffic misconfiguration, or pod-level fault scenarios, and demonstrated how AI agents can diagnose them using the added observability hooks and fault metadata.
 
 ## Installation Guide
 - This installation guide is referenced from main repository written by our mentors and ITBench Team. Full instruction can be accessed via [this link](https://github.com/itbench-hub/ITBench-Scenarios/tree/main/sre)
