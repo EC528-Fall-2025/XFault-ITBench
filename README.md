@@ -85,8 +85,9 @@ The scope of this project is to extend ITBench’s fault injection and detection
 **Out of Scope Features**:
 
 - Creation of new AI agents (evaluation only)
-- Support for non-kubernetes environments (testing assumes kubernetes as base)
+- Support for non-kubernetes environments (testing assumes kubernetes as base) such as Python Unit Testing API
 - Major redesign of ITBench’s architecture (extending existing mechanisms, not rebuilding framework)
+- New Tools introduced to ITBench such as Istio Service Mesh
 
 By setting these boundaries, the project ensures focus on realistic reliability scenarios. The result is a powerful testbed where SREs can validate whether AI agents respond as effectively as human engineers to production-scale failures; from small misconfigurations to multi-service outages.
 
@@ -179,9 +180,170 @@ Sprints
 
 | # | Dates | Sprint Title | Focus / Deliverables |
 | :------: | :------: | :------: | :------: |
-| 1 | Sep 15 – Oct 1 | Foundations | Gain hands-on experience with Kubernetes, microservices, and OpenTelemetry |
-| 2 | Oct 2 – Oct 15 | ITBench Familiarization | Deploy ITBench in a Kubernetes cluster, explore existing fault injection mechanisms, and extend them by combining faults into new scenarios |
-| 3 | Oct 16 – Oct 29 | Application-Level Faults (Part 1) | Implement application-level mechanisms, which will include faults triggered by network policy misconfigurations, and faults triggered by malformed data injection |
-| 4 | Oct 30 – Nov 12 | Application-Level Faults (Part 2) | Continue to extend application-level faults, which this sprint will cover adding a new microservice with login/authentication to simulate authentication failures and introducing memory leak scenarios |
-| 5 | Nov 13 – Nov 24 | Container/Pod-Level Faults | Implement pod-level scenarios, including pod evictions, node affinity conflicts leading to scheduling failures, readiness probe failures, and ImagePullBackoff errors due to registry unavailability |
-| 6 | Nov 25 – Dec 8 | Multi-Service Faults | Implement multi-service coordination failures, including misconfigured service mesh policies, load balancer failures, cascading failures across services, and downstream rate-limiting/throttling scenarios | 
+| 1 | Sep 15 – Oct 1 | Foundations + Setup | Gain hands-on experience with Kubernetes, microservices, and OpenTelemetry |
+| 2 | Oct 2 – Oct 15 | ITBench Familiarization + Istio Service Mesh Tools | Deploy ITBench in a Kubernetes cluster (Remote Cluster), implement Istio Service Mesh, explore existing fault injection mechanisms, and extend them by combining faults into new scenarios |
+| 3 | Oct 16 – Oct 29 | Faults (Part 1) | Implement new fault mechanisms, including Database Resource Limit, Fill database storage fault, Misconfigured Service Mesh Fault, Exhaust Node Resources Fault, and expired TLS certificates fault|
+| 4 | Oct 30 – Nov 12 | Faults (Part 2) | Revised Pull Request from Sprint 2 and continue to extend faults: DNS Misconfiguration Fault, Hanging Init Container Fault, Disabled Sidecar Proxies Fault, and Explicit Traffic Denial |
+| 5 | Nov 13 – Nov 24 | Faults (Part 3) + Python Unit Testing | Research on Python Testing API for non-kubernetes users and implement new fault scenarios, including PodDisruptionBudget, Pod Priority-Based Eviction Cascade, Pod Anti-Affinity, and Misconfigured Readiness Probe Flapping |
+| 6 | Nov 25 – Dec 8 | Wrap Up Pull Requests | Finish up all Pull Requests and Merged all branches to main branch for application-level, multi-service coordination and container/pod-level failures | 
+
+## Installation Guide
+- This installation guide is referenced from main repository written by our mentors and ITBench Team. Full instruction can be accessed via [this link](https://github.com/itbench-hub/ITBench-Scenarios/tree/main/sre)
+- First step: clone git hub ITBench GitHub Repo
+
+### Recommended Software
+
+#### MacOS
+
+- [Homebrew](https://brew.sh/)
+
+### Required Software
+
+- [Python3](https://www.python.org/downloads/) (v3.13.Z)
+- [Helm](https://helm.sh/docs/intro/install/) (v3.16+)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [OpenShift CLI](https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/cli_tools/openshift-cli-oc) (Required Only for OpenShift)
+
+#### Installing Required Software via Homebrew (for MacOS)
+
+1. Install [Homebrew](https://brew.sh/)
+2. Install required software
+```bash
+brew install helm@3
+brew install kubectl
+brew install python@3.13
+brew install openshift-cli
+```
+
+**Note (11/19/2025):** When installing from Brew, it symlinks to most recent version automatically. In the case of Helm, please follow the instructions provided to ensure that the right version responds to the `helm` command. Helm 4 is [currently not supported by the `kubernetes.core` Ansible module](https://github.com/ansible-collections/kubernetes.core/issues/1038) and thus cannot be used by ITBench until a newer version with compatability with it is provided.
+
+#### Installing Required Software (for Red Hat Enterprise Linux -- RHEL)
+
+1. Install Helm 3 by following the instructions [here](https://helm.sh/docs/v3/intro/install#from-script)
+2. Set up kubectl by following the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management)
+3. Set up Python by running:
+```bash
+sudo dnf install python3.13
+```
+4. Install the OpenShift CLI by following the instructions [here](https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/cli_tools/openshift-cli-oc#cli-installing-cli_cli-developer-commands)
+
+#### Deploying an Incident Scenario
+
+##### Installing Dependencies (for initial setup only)
+1. Change directory to sre directory
+```bash
+cd sre
+```
+
+2. Create a Python virtual environment
+```bash
+python3.13 -m venv venv
+source venv/bin/activate
+```
+
+3. Install Python dependencies
+```bash
+python -m pip install -r requirements.txt
+```
+
+**Optional**
+
+_Note: The developer requirements are required in order to lint the playbooks, build the AWX execution environment image, or use the provided playbooks for remote cluster setup. If this functionality is not required, then it is not necessary to install these requirements._
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+4. Install Ansible collections.
+```bash
+ansible-galaxy install -r requirements.yaml --force
+```
+
+5. Create the relevant environment variable files by running
+```bash
+make group_vars
+```
+
+#### Cluster Setup
+
+##### Local Cluster
+
+- Change directory to dev/local_cluster
+```bash
+cd dev/local_cluster
+```
+
+For instruction on how to create a kind cluster on MacOS, please see the instructions [here]([./dev/local_cluster/README.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README.md)).
+For instruction on how to create a kind cluster on Red Hat Enterprise Linux (RHEL) virtual machine (VM) or bare-metal instance, please see the instructions [here]([./dev/local_cluster/README_RHEL.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/local_cluster/README_RHEL.md)).
+
+##### Remote Cluster (Recommended)
+
+- Change directory to dev/remote_cluster
+```bash
+cd dev/remote_cluster
+```
+
+For instruction on how to create an cloud provider based Kubernetes cluster, please see the instructions [here]([./dev/remote_cluster/README.md](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/dev/remote_cluster/README.md)).
+
+Currently, only AWS is supported. AWS clusters are provisioned using [kOps](https://kops.sigs.k8s.io/).
+
+- After finishing setup cluster, change directory back to sre
+```bash
+cd ../..
+```
+
+#### Running Incident Scenarios - Quick Start
+- Change incident number based on the incident you would like to test INCIDENT_NUMBER= ....
+
+##### 1. Start the Incident Scenario
+Run the following command to deploy observability tools, monitoring stack, chaos engineering tools, application stack, and inject the fault for scenario 1:
+
+```bash
+INCIDENT_NUMBER=1 make start_incident
+```
+
+##### 2. Set Up Port Forwarding and Access Dashboards
+Enable access to the Prometheus:
+
+```bash
+kubectl port-forward svc/prometheus-kube-prometheus-prometheus -n prometheus 9090:9090
+```
+
+Navigate to the following URLs in your browser:
+```bash
+# View alerts and metrics
+http://localhost:9090/alerts
+```
+
+Enable access to the Jaeger Query UI:
+
+```bash
+kubectl port-forward svc/jaeger-query -n jaeger 8080:16686
+```
+
+Navigate to the following URLs in your browser:
+```bash
+# View traces
+http://localhost:8080
+```
+
+_Note: instruction for this step is different from the original repository because there has been an update on ingress-nginx tool and it's not available for ITBench anymore._
+
+##### 3. Monitor Alert States
+The system includes alerts that monitor:
+- Deployment status across namespaces
+- Service latency metrics
+- Error rates across services
+
+**Alert Behavior:**
+- Default state: `Inactive`
+- After a few minutes: `Firing` (indicating fault manifestation)
+
+##### 4. Cleanup
+When finished, undeploy by running:
+
+```bash
+INCIDENT_NUMBER=1 make stop_incident
+```
+
+See the [Original Developer Guide](https://github.com/itbench-hub/ITBench-Scenarios/blob/main/sre/DEVELOPER_GUIDE.md) for a step-by-step breakdown of the `make start_incident` process.
