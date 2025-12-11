@@ -456,6 +456,18 @@ http://localhost:8080
 
 _Note: instruction for this step is different from the original repository because there has been an update on ingress-nginx tool and it's not available for ITBench anymore._
 
+If you are on a remote cluster, to display the ip endpoints, use the following commands 
+
+```bash
+export KUBECONFIG=/tmp/development-aws.k8s.local.yaml
+```
+
+```bash
+kubectl -n kube-gateways get gateway
+```
+
+After copying the address displayed, append /prometheus/query and /jaeger to the address to view respective dashboards.
+
 ##### 3. Monitor Alert States
 The system includes alerts that monitor:
 - Deployment status across namespaces
